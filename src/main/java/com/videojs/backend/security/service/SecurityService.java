@@ -24,12 +24,6 @@ public class SecurityService {
 
         Key key = new AesKey(JWT_ENCRYPTION_KEY.getBytes());
         JsonWebEncryption jwe = new JsonWebEncryption();
-/*        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("pid", pid);
-        jsonObj.put("uid", uid);
-        jsonObj.put("skey", SECURITY_KEY);
-        jsonObj.put("ctime", "" + System.currentTimeMillis());
-        jsonObj.put("expire", "" + (System.currentTimeMillis() + (expiredSeconds>0?expiredSeconds*1000:3600000L)));*/
 
         SecurityBean sb = new SecurityBean(pid,uid,SECURITY_KEY,System.currentTimeMillis(),(System.currentTimeMillis() + (expiredSeconds>0?expiredSeconds*1000:3600000L)));
 
@@ -50,13 +44,6 @@ public class SecurityService {
         if (payLoad != null && payLoad.trim().length() > 0) {
             System.out.println("payload:"+payLoad);
             ret = mapper.readValue(payLoad,SecurityBean.class);
-/*            payLoadJson = new JSONObject(payLoad);
-            Iterator<String> keys = payLoadJson.keys();
-            while (keys.hasNext()) {
-                String key = keys.next();
-                System.out.println(key+" "+payLoadJson.getString(key));
-            }*/
-
         }
         return ret;
     }
