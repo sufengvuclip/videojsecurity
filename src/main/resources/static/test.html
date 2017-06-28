@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+remote api return : <div id="message"></div>
+</body>
+<script>
+    var createCORSRequest = function(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+            // Most browsers.
+            xhr.open(method, url, true);
+        } else if (typeof XDomainRequest != "undefined") {
+            // IE8 & IE9
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+        } else {
+            // CORS not supported.
+            xhr = null;
+        }
+        return xhr;
+    };
+
+    var url = 'http://staging.vuclip.com:8888/security/testApi?n=Vucliper&t=eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.WHc62BcPfmNipeUYMZ-40i0Kr21OLhqQINWJzQXSOxocDw1GKRVKIQ.XRyaZ6k464b4jzsz_JN3Pg.QZIU9Z1y4_IPz4y1hsKTy4vBCMu5p8vm6IUcFzPSz_TD4LLHnk9iycUq5L2tolWLj20z2VsCRfN1AIbyiT2hjCZAo_y9AtOzbeOyL8MXzyPC0GFlR3hIKR5o3RH1-HLTdxKjGjimkTi1k5qagUGWPw.YmfsSnXftXYZl6GbiZ24qg';
+    var method = 'GET';
+    var xhr = createCORSRequest(method, url);
+
+    xhr.onload = function() {
+        // Success code goes here.
+        console.log("return : "+xhr.responseText);
+        document.getElementById("message").innerText = xhr.responseText;
+    };
+
+    xhr.onerror = function() {
+        // Error code goes here.
+        console.log("error : "+xhr.error);
+        document.getElementById("message").innerText = "Error:"+xhr.error;
+    };
+
+    xhr.send();
+</script>
+</html>
